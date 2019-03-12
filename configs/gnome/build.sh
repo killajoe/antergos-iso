@@ -162,16 +162,6 @@ make_setup_mkinitcpio() {
     cp -L ${SCRIPT_PATH}/mkinitcpio.conf ${ROOTFS}/etc/mkinitcpio-archiso.conf
     cp -L ${SCRIPT_PATH}/root-image/etc/os-release ${ROOTFS}/etc
 
-    if [ -f "${SCRIPT_PATH}/plymouth/plymouthd.conf" ]; then
-        cp -L ${SCRIPT_PATH}/plymouth/plymouthd.conf ${ROOTFS}/etc/plymouth
-        cp -L ${SCRIPT_PATH}/plymouth/plymouth.initcpio_hook ${ROOTFS}/etc/initcpio/hooks
-        cp -L ${SCRIPT_PATH}/plymouth/plymouth.initcpio_install ${ROOTFS}/etc/initcpio/install
-        #MKARCHISO_RUN 'plymouth-set-default-theme Antergos-Simple'
-        echo '>>> Plymouth done!'
-    else
-        sed -i 's|plymouth||g' ${ROOTFS}/etc/mkinitcpio-archiso.conf
-    fi
-
     MKARCHISO_RUN 'mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img'
     echo '>>> Mkinitcpio done!'
     if [[ ! -f ${ROOTFS}/boot/archiso.img ]]; then
@@ -306,10 +296,6 @@ make_customize_rootfs() {
 
         MKARCHISO_RUN 'systemctl -fq enable ModemManager'
         MKARCHISO_RUN 'systemctl -fq enable upower'
-
-        if [ -f "${SCRIPT_PATH}/plymouthd.conf" ]; then
-            MKARCHISO_RUN 'systemctl -fq enable plymouth-start'
-        fi
 
         if [ -f "${ROOTFS}/etc/systemd/system/lightdm.service" ]; then
             MKARCHISO_RUN 'systemctl -fq enable lightdm'
