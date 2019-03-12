@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-ISO_NAME="antergos"
-ISO_LABEL="ANTERGOS"
+ISO_NAME="antergos_nvidia"
+ISO_LABEL="ANTERGOS_NVIDIA"
 
 INSTALL_DIR="arch"
 WORK_DIR="/work"
@@ -12,14 +12,14 @@ OUT_DIR="/out"
 VERBOSE="-v"
 
 # Tell which nvidia drivers include into the iso
-NOUVEAU_DRIVER="y"
-NVIDIA_DRIVER="n"
+NOUVEAU_DRIVER="n"
+NVIDIA_DRIVER="y"
 
 # Add ZFS modules
-ADD_ZFS_MODULES="y"
+ADD_ZFS_MODULES="n"
 
 # Keep xz packages in cache
-KEEP_XZ="y"
+KEEP_XZ="n"
 
 # Install iso-hotfix-utility from source
 ISO_HOTFIX="y"
