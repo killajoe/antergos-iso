@@ -52,4 +52,6 @@ pepper-flash
 pidgin
 polari
 totem
-transmission-gtk
+deluge
+htop
+glances
